@@ -1,4 +1,4 @@
-//
+ //
 //  ViewController.swift
 //  TodoIT
 //
@@ -12,9 +12,16 @@ class TodoListViewController: UITableViewController {
     
     var itemArray = ["Find Mike","Buy Water","Kill Demagorgon","Go to Police","New Commit"]
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            
+            itemArray = items
+            
+        }
     }
 
    
@@ -69,6 +76,10 @@ class TodoListViewController: UITableViewController {
         let action = UIAlertAction(title: "Add item", style: .default) { (action) in
         
             self.itemArray.append(textField.text!)
+            
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
+            
+            
             self.tableView.reloadData()
         }
         alert.addTextField { (alertTextField) in
@@ -79,6 +90,24 @@ class TodoListViewController: UITableViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
         
+    }
+    
+   
+    //MARK-Delete cell on swipe
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            defaults.removeObject(forKey: "TodoListArray[indexPath.row]")
+            
+            self.tableView.reloadData()
+            
+            
+        }
     }
     
 
