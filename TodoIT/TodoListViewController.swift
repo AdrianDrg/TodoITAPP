@@ -102,10 +102,13 @@ class TodoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             // handle delete (by removing the data from your array and updating the tableview)
-            defaults.removeObject(forKey: "TodoListArray[indexPath.row]")
+            var array = defaults.array(forKey: "TodoListArray")
+            array!.remove(at: indexPath.row)
             
             self.tableView.reloadData()
-            
+
+           
+
             
         }
     }
