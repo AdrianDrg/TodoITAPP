@@ -18,6 +18,10 @@ class CategoryViewController: UITableViewController {
         super.viewDidLoad()
         
         loadCategory()
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
+        tableView.rowHeight = 80
+
 
     }
     
@@ -32,10 +36,6 @@ class CategoryViewController: UITableViewController {
         cell.textLabel?.text = category.name
         
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
     }
     
     //Mark: - TableView Delegate Methods

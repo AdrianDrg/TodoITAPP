@@ -12,6 +12,8 @@ import UIKit
 class TodoListViewController: UITableViewController {
     
     var itemArray = [Item]()
+   
+    // We load the items for the selected category
     var selectedCategory : Category? {
         
         didSet{
@@ -24,6 +26,9 @@ class TodoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(selectedCategory!)
+        tableView.rowHeight = 60
     }
    
     //MARK: - Tableview Data Source
@@ -40,10 +45,6 @@ class TodoListViewController: UITableViewController {
         cell.tintColor = UIColor.red
         
         return cell
-    }
-
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
     }
    
     //MARK: - Tableview Delegate Methods
@@ -141,6 +142,8 @@ class TodoListViewController: UITableViewController {
         }
         tableView.reloadData()
     }
+    
+    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
